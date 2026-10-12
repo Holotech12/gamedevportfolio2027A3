@@ -26,9 +26,9 @@ Left Mouse click shoots a projectile.
 ## Required Foundation — 2 Points
 
 ### Three Power-Up Types
-1. Turret — [Effect, duration if relevant, and status]
-2. Speed — [Effect, duration if relevant, and status]
-3. Health — [Effect, duration if relevant, and status]
+1. Turret — Increases number of player projectiles spawned up to 3, lasts for 5 sec, each collection resets the timer
+2. Speed — Increases speed of player projectiles spawned up to 15, lasts for 5 sec, each collection resets the timer
+3. Health — Increases player health by 30
 
 ### Levels
 [Explain what triggers progression and what changes
@@ -55,7 +55,7 @@ Actual result:
 and image/audio folders.]
 
 Asset credits:
-[Credit outside assets and identify assets you created.]
+Assets created in piskel
 
 ## Known Issues
 [Describe unfinished behavior or known bugs honestly.]
