@@ -53,6 +53,14 @@ Actual result:
 ## Project Files and Assets
 [Identify the main sketch, other tabs,
 and image/audio folders.]
+#Main Folder
+FlightSim
+
+#Other Tabs
+Projectile, Boss, Enemy, PowerUp, Ship, Timer
+
+#Data folder
+Projectile.gif, background.png, gameover.png, winn.png, start.png, toby.png, toby.gif, planeship.gif, eprojectile.gif, healthup.png, turretpu.png, speedpu.png, lose.mp3, win.mp3, expsound.mp3, powercollect.mp3
 
 Asset credits:
 Assets created in piskel
