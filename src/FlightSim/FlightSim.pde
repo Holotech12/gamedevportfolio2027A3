@@ -10,6 +10,7 @@ SoundFile lazer01, explosion, winner, loser, collect;
 ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 ArrayList<PowerUp> powers = new ArrayList<PowerUp>();
 ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
+ArrayList<Projectile> enemyproj = new ArrayList<Projectile>();
 int score, enemyCount, rocksPassed, laserSpeed, gameLevel;
 PImage bg, startscreen, overscreen, winscreen;
 float bx=300, by=550, bw=200, bh=100;
@@ -21,12 +22,14 @@ void setup() {
   winscreen = loadImage("winn.png");
   ship01 = new Ship(width/2, height/2, 0, this);
   score = 0;
-  boss01 = new Boss(0,100, gameLevel);
-  timer1 = new Timer(750);
-  puDist = new Timer(1500);
-  pSpawn = new Timer(500);
+  boss01 = new Boss(0,100, gameLevel, this);
+  timer1 = new Timer(1250);
+  puDist = new Timer(2000);
+  pSpawn = new Timer(200);
   pulLength = new Timer(5000);
   putLength = new Timer(5000);
+//  efire = new Timer(750);
+  //efire = new Timer(int(random(200,500)));
   laserSpeed = 5;
   gameState = true;
   gameLevel = -1;
@@ -131,12 +134,18 @@ void draw() {
     background(bg);
     ship01.updatePosition();
     ship01.display();
-    
     for (int i = 0; i<projectiles.size(); i++) {
       //println("projectiles:" +projectiles.size());
       Projectile p = projectiles.get(i);
       if (p.isOffScreen()== true) {
         projectiles.remove(p);
+      }
+      for (int b = 0; b< enemyproj.size();b++){
+         Projectile w = enemyproj.get(b);
+         if (w.isHitpr(p)){
+           enemyproj.remove(w);
+           projectiles.remove(p);
+         }
       }
       p.move();
       p.display();
@@ -145,6 +154,20 @@ void draw() {
       //println("rocks:" +enemies.size());
       Enemy r = enemies.get(i);
       //add isHit()
+      if (r.y == r.firerate){
+        r.y +=10;
+        r.fire();
+        enemyproj.add(new Projectile(r.x, r.y-10, this, r.speed,2));
+      }
+      //for (int b = 0; b< enemyproj.size();b++){
+      //   Projectile w = enemyproj.get(b);
+      //    if (w.isOnScreen) {
+      //      r.efire.start();
+      //    }
+      //}
+      //if (r.efire.isFinished()){
+      //  r.isFiring = false;
+      //}
       for (int j = 0; j<projectiles.size(); j ++) {
         Projectile p = projectiles.get(j);
         if (p.isHit(r)) {
@@ -178,6 +201,18 @@ void draw() {
       r.move();
       r.display();
     }
+    for (int f =0; f<enemyproj.size(); f ++){
+        Projectile w = enemyproj.get(f);
+        if (w.isOffScreen()) {
+          enemyproj.remove(w);
+        }
+        if(ship01.isHits(w)){
+          enemyproj.remove(w);
+          ship01.health -= 15;
+        }
+        w.emove();
+        w.display();
+      }
     for (int i = 0; i<powers.size(); i++) {
       //println("power ups:" +powers.size());
       PowerUp pu = powers.get(i);
@@ -235,9 +270,13 @@ void draw() {
       //println("e");
       ship01.turretCount --;
     }
+    //if (efire.isFinished()){
+    //  enemyproj.add(new Projectile(ship01.x, ship01.y-50, this, laserSpeed,2));
+    //}
     if (timer1.isFinished() == true) {
       enemies.add(new Enemy(int(random(width)), -60, this));
       timer1.start();
+      //efire.start();
       enemyCount++;
     }
     if (puDist.isFinished()) {
