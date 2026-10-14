@@ -67,6 +67,7 @@ Assets created in piskel
 
 ## Known Issues
 [Describe unfinished behavior or known bugs honestly.]
+Boss and level mechanics are not yet finished. Enemy projectile collisions are also a little bit finicky.
 
 ## Next Development Task
 Level systems
