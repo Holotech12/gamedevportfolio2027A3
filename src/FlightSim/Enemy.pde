@@ -1,8 +1,9 @@
 import gifAnimation.*;
 class Enemy {
   //member vars
-  int x, y, w, h, health, exp, speed;
-  boolean isHit, isExploding, isDead;
+  int x, y, w, h, health, exp, speed, firerate;
+  boolean isHit, isExploding, isDead, isFiring;
+  int firetime;
   PImage tob;
   Gif blowup;
   // constructor
@@ -19,6 +20,8 @@ class Enemy {
     isHit = false;
     isExploding = false;
     isDead = false;
+    firerate = speed*int(random(30,45));
+    isFiring = false;
   }
   //member methods
   void display() {
@@ -47,12 +50,21 @@ class Enemy {
       //image(blowup,x,y);
      }
   }
-  
+  void fire(){
+    firetime = millis();
+    isFiring = true;
+  }
   void move() {
-    if (isExploding == false){
-      y = y+speed;
+    if (isExploding == false){// && isFiring == false){
+      if (isFiring && millis() - firetime >= 1000){
+        isFiring = false;
+      }
+      if (!isFiring){
+        y = y+speed;
+      }
     }
   }
+ 
    boolean isOffScreen(){
     if (y>height+50){
       return true;
