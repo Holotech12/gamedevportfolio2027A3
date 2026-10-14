@@ -14,7 +14,7 @@ class Ship {
     angle = tempangle;
     turretCount = 1;
 //    shipp = loadImage("plane.png");
-    health = 50;
+    health = 100;
     shipanimate = new Gif(parent, "planeship.gif");
     shipanimate.loop();
   }
@@ -28,10 +28,10 @@ class Ship {
 
   // update coord
   void updatePosition() {
-    if (moveLeft) {x -= speed;}// angle = 270;}
-    if (moveRight){ x += speed;}// angle = 90;}
-    if (moveUp){  y -= speed;}// angle = 0;}
-    if (moveDown){  y += speed;}// angle = 180;}
+    if (moveLeft && x >=10) {x -= speed;}// angle = 270;}
+    if (moveRight && x <= 790){ x += speed;}// angle = 90;}
+    if (moveUp && y>= 10){  y -= speed;}// angle = 0;}
+    if (moveDown && y <= 790){  y += speed;}// angle = 180;}
   }
 
   void display() {
@@ -45,6 +45,12 @@ class Ship {
   }
   boolean isHit(Enemy r){
     float d = dist(x,y, r.x,r.y);
+    if(d<100){
+      return true;
+    }else{ return false;}
+  }
+  boolean isHits(Projectile h){
+    float d = dist(x,y, h.x,h.y);
     if(d<100){
       return true;
     }else{ return false;}
