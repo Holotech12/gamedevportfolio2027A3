@@ -1,6 +1,6 @@
 # Karlyn Tran Game Dev Portfolio
 
-##Term 1 projects
+## Term 1 projects
 
 ### OOP FlightSim
 
